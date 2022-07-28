@@ -7,7 +7,7 @@ The experiments have been performed using [SemEval 2022 Task-2](https://github.c
 
 ## Experiment Setup
 - The original source code that runs both training and evaluation is obtained from [here](https://github.com/H-TayyarMadabushi/AStitchInLanguageModels/blob/main/Dataset/Task2/Utils/run_glue_f1_macro.py).
-- A separate code file is used to run and evaluate for adapter-based approach. Based on the modified version available [here]. It has been modified further for the sake of this experiment and local copy is available at [run_glue_f1_macro_adapter.py](./exp_helpers/run_glue_f1_macro.py).
+- A separate code file is used to run and evaluate for adapter-based approach. Based on the modified version available [here](https://github.com/adapter-hub/adapter-transformers/blob/master/examples/pytorch/text-classification/run_glue.py). It has been modified further for the sake of this experiment and local copy is available at [run_glue_f1_macro_adapters.py](./scripts/run_glue_f1_macro_adapters.py).
 
 ### Experiment Tracker
 
