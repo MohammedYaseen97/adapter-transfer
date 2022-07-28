@@ -24,7 +24,7 @@ The experiments have been performed using [SemEval 2022 Task-2](https://github.c
 | exp5 | [exp5](./notebooks/exp5) | ToBeDecided | Few-shot | ToBeDecided | ToBeDecided | TODO |
 
 # TODO
-- Have to attempt to use transfer learning with the help of adapters (MAd-X architecture) to pinpoint if idioms are a lingual task or a separate task.
+- Have to attempt to use transfer learning with the help of adapters (MAD-X architecture) to pinpoint if idioms are a lingual task or a separate task.
 - Perform the contrastive based tuning on idioms rather than words to see if there is any improvement in detecting idioms.
 
 ## Results
