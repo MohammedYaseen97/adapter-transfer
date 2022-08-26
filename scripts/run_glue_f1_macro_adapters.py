@@ -51,11 +51,16 @@ from transformers.utils.versions import require_version
 
 from sklearn.metrics import f1_score, accuracy_score
 
+# Added this line for cuda operations
+import torch
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
 # check_min_version("4.19.0")
 
 require_version("datasets>=1.8.0", "To fix: pip install -r examples/pytorch/text-classification/requirements.txt")
+
+# The cuda operations
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 task_to_keys = {
     "cola": ("sentence", None),
@@ -383,7 +388,7 @@ def main():
             )
             print()
             print()
-            print("Adapter Config : ", adapter_config)
+            print("Adapter config : ", adapter_config)
             print()
             print()
             # load a pre-trained from Hub if specified
@@ -404,6 +409,11 @@ def main():
                 non_linearity=adapter_args.lang_adapter_non_linearity,
                 reduction_factor=adapter_args.lang_adapter_reduction_factor,
             )
+            print()
+            print()
+            print("Language adapter config : ", lang_adapter_config)
+            print()
+            print()
             # load the language adapter from Hub
             lang_adapter_name = model.load_adapter(
                 adapter_args.load_lang_adapter,
@@ -412,13 +422,41 @@ def main():
             )
         else:
             lang_adapter_name = None
+#            print()
+#            print()
+#            print("Language adapter config : None")
+#            print()
+#            print()
+            src_lang_adapter_name = tgt_lang_adapter_name = None
+            # Load the language adapter config
+            lang_adapter_config = AdapterConfig.load("pfeiffer", reduction_factor=2)
+            print()
+            print()
+            print("Language adapter config : ", lang_adapter_config)
+            print()
+            print()
+            # load the language adapter from Hub
+            en_lang_adapter_name = model.load_adapter("en/wiki@ukp", config=lang_adapter_config)
+            pt_lang_adapter_name = model.load_adapter("pt/wiki@ukp", config=lang_adapter_config)
+            print()
+            print()
+            print("Loaded EN and PT language adapters..")
+            print()
+            print()
+            
         # Freeze all model weights except of those of this adapter
         model.train_adapter([task_name])
         # Set the adapters to be used in every forward pass
         if lang_adapter_name:
             model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
         else:
-            model.set_active_adapters([task_name])
+#            model.set_active_adapters([task_name])
+            print()
+            print()
+            print("Initially setting up training with EN language adapter..")
+            print()
+            print()
+            model.set_active_adapters(ac.Stack(en_lang_adapter_name, task_name))
     else:
         if adapter_args.load_adapter or adapter_args.load_lang_adapter:
             raise ValueError(
@@ -601,7 +639,15 @@ def main():
     # Evaluation
     if training_args.do_eval:
         logger.info("*** Evaluate ***")
-
+        
+        # Change the language adapter while still keeping the task adapter
+        print()
+        print()
+        print("Changing the language adapter to PT during evaluation..")
+        print()
+        print()
+        model.set_active_adapters(ac.Stack(pt_lang_adapter_name, task_name))
+        
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         tasks = [data_args.task_name]
         eval_datasets = [eval_dataset]
