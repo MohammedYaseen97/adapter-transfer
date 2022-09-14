@@ -9,37 +9,25 @@ The experiments have been performed using [SemEval 2022 Task-2](https://github.c
 - The original source code that runs both training and evaluation is obtained from [here](https://github.com/H-TayyarMadabushi/AStitchInLanguageModels/blob/main/Dataset/Task2/Utils/run_glue_f1_macro.py).
 - A separate code file is used to run and evaluate for adapter-based approach. Based on the modified version available [here](https://github.com/adapter-hub/adapter-transformers/blob/master/examples/pytorch/text-classification/run_glue.py). It has been modified further for the sake of this experiment and local copy is available at [run_glue_f1_macro_adapters.py](./scripts/run_glue_f1_macro_adapters.py).
 
-### Experiment Tracker
-
-| Experiment | Notebook | Single Token Rep | Dataset  | Model | Context | Status |
-|:-----------|:---------|:-----------------|:---------|:------|:--------|:-------|
-| exp0 | [exp0](./experiments/exp0) | No | Zero-shot | BERT base (cased) | No Context | Done (3GPUs) |
-| exp1 | [exp1](./notebooks/exp1) | No | Zero-shot | XLNet base (cased) | No Context | Done (4GPUs) | 
-| exp2 | [exp2](./notebooks/exp2) | No | Zero-shot | *BERT base (cased)* | All Context | Done (4GPUs) |
-| **exp3A_1**| [exp3A_1](./notebooks/exp3A_1) | Yes | Zero-shot | *BERT base (cased)* | No Context | Done (4GPUs) |
-| **exp3A_2**| [exp3A_2](./notebooks/exp3A_2) | Yes | Zero-shot | *BERT base (cased)* | No Context | Done (4GPUs) |
-| **exp3B_1**| [exp3B_1](./notebooks/exp3B_1) | Yes | Zero-shot | ToBeDecided | ToBeDecided | TODO |
-| **exp3B_2**| [exp3B_2](./notebooks/exp3B_2) | Yes | Zero-shot | ToBeDecided | ToBeDecided | TODO |
-| exp4 | [exp4](./notebooks/exp4) | ToBeDecided | One-shot | ToBeDecided | ToBeDecided | TODO |
-| exp5 | [exp5](./notebooks/exp5) | ToBeDecided | Few-shot | ToBeDecided | ToBeDecided | TODO |
-
-# TODO
-- Have to attempt to use transfer learning with the help of adapters (MAD-X architecture) to pinpoint if idioms are a lingual task or a separate task.
-- Perform the contrastive based tuning on idioms rather than words to see if there is any improvement in detecting idioms.
-
 ## Results
 
-| Experiment | Dev Accuracy | Dev F1 | Test Accuracy | Test F1 |
-|:-----------|:-------------|:-------|:--------------|:--------|
-| exp0 | 85.16 | 83.00 | 0.0 | 0.0 |
-| exp1 | 87.60 | 85.38 | 0.0 | 0.0 |
-| exp2 | 84.91 | 81.50 | 0.0 | 0.0 |
-| exp3A_1| 78.26 | 67.54 | 0.0 | 0.0 |
-| exp3A_2| 80.39 | 74.21 | 0.0 | 0.0 |
+|     Setting      |     Model                                                          |     Acc       |     F1        |
+|------------------|--------------------------------------------------------------------|---------------|---------------|
+|     Zero-Shot    |     Baseline : mBERT for EN idiomatic usage detection              |     0.7189    |     0.7026    |
+|                  |     Baseline : mBERT for PT idiomatic usage detection              |     0.6117    |     0.5836    |
+|                  |     Baseline : mBERT for multilingual idiomatic usage detection    |     0.682     |     0.6809    |
+|                  |     AdapterBERT for EN idiomatic usage detection                   |     0.6845    |     0.672     |
+|                  |     AdapterBERT for PT idiomatic usage detection                   |     0.6886    |     0.675     |
+|                  |     AdapterBERT for EN-PT idiomatic knowledge transfer             |     0.5458    |     0.5406    |
+|                  |     AdapterBERT for PT-EN idiomatic knowledge transfer             |     0.5365    |     0.5365    |
+|     One-Shot     |     Baseline : mBERT for EN idiomatic usage detection              |     0.8648    |     0.856     |
+|                  |     Baseline : mBERT for PT idiomatic usage detection              |     0.8681    |     0.8666    |
+|                  |     Baseline : mBERT for multilingual idiomatic usage detection    |     0.8606    |     0.8603    |
+|                  |     AdapterBERT for EN idiomatic usage detection                   |     0.8906    |     0.8868    |
+|                  |     AdapterBERT for PT idiomatic usage detection                   |     0.8608    |     0.8596    |
+|                  |     AdapterBERT for EN-PT idiomatic knowledge transfer             |     0.652     |     0.6436    |
+|                  |     AdapterBERT for PT-EN idiomatic knowledge transfer             |     0.6631    |     0.6629    |
 
-# TODO
-- Track & Visualise Training progress
-- Hyperparameter tuning
 
 ## References
 [1] H. Tayyar Madabushi, E. Gow-Smith, C. Scarton, and A. Villavicencio, “AStitchInLanguageModels: Dataset and Methods for the Exploration of Idiomaticity in Pre-Trained Language Models,” in Findings of the Association for Computational Linguistics: EMNLP 2021, Punta Cana, Dominican Republic, 2021, pp. 3464–3477. doi: 10.18653/v1/2021.findings-emnlp.294.
