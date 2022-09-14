@@ -453,10 +453,10 @@ def main():
 #            model.set_active_adapters([task_name])
             print()
             print()
-            print("Initially setting up training with EN language adapter..")
+            print("Initially setting up training with PT language adapter..")
             print()
             print()
-            model.set_active_adapters(ac.Stack(en_lang_adapter_name, task_name))
+            model.set_active_adapters(ac.Stack(pt_lang_adapter_name, task_name))
     else:
         if adapter_args.load_adapter or adapter_args.load_lang_adapter:
             raise ValueError(
@@ -643,10 +643,10 @@ def main():
         # Change the language adapter while still keeping the task adapter
         print()
         print()
-        print("Changing the language adapter to PT during evaluation..")
+        print("Changing the language adapter to EN during evaluation..")
         print()
         print()
-        model.set_active_adapters(ac.Stack(pt_lang_adapter_name, task_name))
+        model.set_active_adapters(ac.Stack(en_lang_adapter_name, task_name))
         
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         tasks = [data_args.task_name]
@@ -675,6 +675,14 @@ def main():
     if training_args.do_predict:
         logger.info("*** Test ***")
 
+        # Change the language adapter while still keeping the task adapter
+        print()
+        print()
+        print("Changing the language adapter to EN during testing..")
+        print()
+        print()
+        model.set_active_adapters(ac.Stack(en_lang_adapter_name, task_name))
+        
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         tasks = [data_args.task_name]
         predict_datasets = [predict_dataset]
