@@ -1,6 +1,6 @@
-# idiomaticity-detection
+# Cross Lingual Transfer Using Adapters
 
-**Objective**: Run the idiomaticity detection experiment to establish if adapter-based models and contrastive fine-tuning models detect idiomatic usage better than BERT model
+**Objective**: Run the idiomaticity detection experiment to establish if adapter-based can transfer idiomatic knowledge across languages.
 
 ## Dataset used
 The experiments have been performed using [SemEval 2022 Task-2](https://github.com/H-TayyarMadabushi/SemEval_2022_Task2-idiomaticity) data
@@ -35,8 +35,6 @@ The experiments have been performed using [SemEval 2022 Task-2](https://github.c
 [2] Harish Tayyar Madabushi, Edward Gow-Smith, Marcos Garcia, Carolina Scarton, Marco Idiart, and Aline Villavicencio. 2022. SemEval-2022 Task 2: Multilingual Idiomaticity Detection and Sentence Embedding. In Proceedings of the 16th International Workshop on Semantic Evaluation (SemEval-2022), pages 107–121, Seattle, United States. Association for Computational Linguistics.
 
 [3] Jonas Pfeiffer, Ivan Vulić, Iryna Gurevych, and Sebastian Ruder. 2020. MAD-X: An Adapter-Based Framework for Multi-Task Cross-Lingual Transfer. In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP), pages 7654–7673, Online. Association for Computational Linguistics.
-
-[4] Qianchu Liu, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2021. MirrorWiC: On Eliciting Word-in-Context Representations from Pretrained Language Models. In Proceedings of the 25th Conference on Computational Natural Language Learning, pages 562–574, Online. Association for Computational Linguistics.
 
 ## License
 TODO
